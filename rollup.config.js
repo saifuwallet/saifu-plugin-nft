@@ -1,22 +1,24 @@
-import typescript from "@rollup/plugin-typescript";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import typescript from "@rollup/plugin-typescript";
+import autoprefixer from "autoprefixer";
 import postcss from "rollup-plugin-postcss";
 import tailwindcss from "tailwindcss";
-import autoprefixer from "autoprefixer";
+import copy from "rollup-plugin-copy";
+
+const isProd = process.env.NODE_ENV === "production";
 
 export default {
   input: "main.tsx",
   output: {
     dir: "dist",
-    sourcemap: "inline",
+    sourcemap: !isProd && "inline",
     format: "system",
     exports: "default",
   },
   external: ["saifu", "react", "react-dom"],
   plugins: [
     commonjs(),
-
     postcss({
       inject: true,
       minimize: true,
@@ -41,6 +43,11 @@ export default {
       include: ["node_modules/**"],
       skip: ["saifu", "react", "react-dom"],
     }),
-    typescript({}),
+    typescript({
+      declaration: !isProd,
+    }),
+    copy({
+      targets: [{ src: "./manifest.json", dest: "./dist" }],
+    }),
   ],
 };
