@@ -47,7 +47,7 @@ export default {
       declaration: !isProd,
     }),
     copy({
-      targets: [{ src: "./manifest.json", dest: "./dist" }],
+      targets: [{ src: "./metadata.json", dest: "./dist" }],
     }),
   ],
 };
