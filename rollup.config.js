@@ -24,7 +24,7 @@ export default {
       minimize: true,
       plugins: [
         new tailwindcss({
-          content: ["./*/**.{js,jsx,ts,tsx}"],
+          content: ["./*.{js,jsx,ts,tsx}"],
           theme: {
             extend: {},
           },
