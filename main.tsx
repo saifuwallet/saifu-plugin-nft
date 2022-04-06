@@ -3,7 +3,17 @@ import "./style.css";
 
 import { CubeIcon } from "@heroicons/react/outline";
 import { FunctionComponent, useLayoutEffect, useRef, useState } from "react";
-import { AppContext, Plugin, PluginSettings, Setting, ViewProps } from "saifu";
+import {
+  AppContext,
+  Plugin,
+  PluginSettings,
+  Setting,
+  TokenAccount,
+  useCachedImage,
+  useNFTAccounts,
+  useTokenMetadata,
+  ViewProps,
+} from "saifu";
 import LoadingComponent from "./components/loading";
 import NoNftsComponent from "./components/nonfts";
 
@@ -18,8 +28,9 @@ const NftBox: FunctionComponent<NftBoxProps> = (props: {
 }) => {
   const [boxSize, setBoxSize] = React.useState(0);
 
-  const metadata = props.app.hooks.useTokenMetadata(props.mint);
+  const metadata = useTokenMetadata(props.mint);
   const boxContainer = useRef(null);
+  const nftImage = useCachedImage(metadata.data?.image);
 
   useLayoutEffect(() => {
     if (boxContainer.current) {
@@ -33,7 +44,7 @@ const NftBox: FunctionComponent<NftBoxProps> = (props: {
   }
 
   const bgStyle = {
-    backgroundImage: `url('${metadata.data?.image}')`,
+    backgroundImage: `url('${nftImage.data}')`,
     backgroundColor: "bg-gray-300",
     height: `${boxSize}px`,
   };
@@ -64,7 +75,7 @@ const NftBox: FunctionComponent<NftBoxProps> = (props: {
 };
 
 const NftOverviewView: FunctionComponent<ViewProps> = ({ app }) => {
-  const nftAccs = app.hooks.useNFTAccounts();
+  const nftAccs = useNFTAccounts();
 
   return (
     <>
@@ -72,9 +83,11 @@ const NftOverviewView: FunctionComponent<ViewProps> = ({ app }) => {
       {!nftAccs.isLoading && nftAccs.data?.length === 0 && <NoNftsComponent />}
 
       <div className="grid grid-cols-2 gap-3">
-        {nftAccs.data?.map((acc) => (
-          <NftBox key={acc.mint} app={app} mint={acc.mint} />
-        ))}
+        {nftAccs.data
+          ?.sort((a, b) => a.mint.localeCompare(b.mint))
+          .map((acc: TokenAccount) => (
+            <NftBox key={acc.mint} app={app} mint={acc.mint} />
+          ))}
       </div>
     </>
   );
@@ -89,12 +102,10 @@ const DEFAULT_SETTINGS: NFTPluginSettings = {
 
 class NftOverviewSettings extends PluginSettings {
   plugin: NftOverviewPlugin;
-  app: AppContext;
 
-  constructor(app: AppContext, plugin: NftOverviewPlugin) {
-    super(app, plugin);
+  constructor(plugin: NftOverviewPlugin) {
+    super(plugin);
     this.plugin = plugin;
-    this.app = app;
   }
 
   display() {
@@ -116,22 +127,14 @@ class NftOverviewSettings extends PluginSettings {
 }
 
 export default class NftOverviewPlugin extends Plugin {
-  name = "NFT Overview";
-  description = "Plugin to see your NFTs";
-  id = "nft-plugin";
   settings: NFTPluginSettings = DEFAULT_SETTINGS;
 
   async onload(): Promise<void> {
-    console.log("initializing nft plugin onload");
-
-    console.log("loading settings:");
-    await this.loadSettings();
-    console.log("data: ", this.settings);
-
-    this.setSettings(new NftOverviewSettings(this.app, this));
+    // await this.loadSettings();
+    // this.setSettings(new NftOverviewSettings(this));
 
     this.addView({
-      title: "My NFTs",
+      title: "NFTs",
       id: "overview",
       component: NftOverviewView,
       icon: <CubeIcon />,
