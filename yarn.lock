@@ -3537,10 +3537,10 @@ safer-buffer@^2.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-saifu@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/saifu/-/saifu-0.4.0.tgz#19631235cbb700b3ce9f358d6cf5cb3522ba5d27"
-  integrity sha512-CmXKmJt4aMtxXSrnu+MtBXm3CCGmnVvullM3zOhi9W3adt5QKuRysz971xRSx8bOi3gs6LpAdU+xt5SrF8UU9g==
+saifu@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/saifu/-/saifu-0.4.3.tgz#0902cac35c90c1cd1ce0f2dd6d5e404aa7a40a06"
+  integrity sha512-vkopTSVv4dA/RQBeSRzPB6+AeYs66r2bFwmWo7cFBTEkBIW80MWDWdDP5h9/c479Rn2EXFgq8DFCm0xSghsLeA==
   dependencies:
     "@solana/spl-token-registry" "^0.2.2911"
     "@solana/web3.js" "^1.35.1"

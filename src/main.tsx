@@ -25,6 +25,22 @@ export default class NftOverviewPlugin extends Plugin {
       component: NftOverviewView,
       icon: <CubeIcon />,
     });
+
+    this.addTokenAction(
+      ({ tokenInfo, tokenAccountInfo }) => {
+        console.log(tokenAccountInfo);
+        return (
+          tokenInfo?.decimals === 1 ||
+          tokenInfo?.decimals === 0 ||
+          tokenAccountInfo?.decimals === 1 ||
+          tokenAccountInfo?.decimals === 0
+        );
+      },
+      'Open on MagicEden',
+      ({ mint }) => {
+        window.open(`https://magiceden.io/item-details/${mint}`);
+      }
+    );
   }
 
   async loadSettings() {
