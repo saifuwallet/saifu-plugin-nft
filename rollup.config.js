@@ -1,30 +1,34 @@
-import commonjs from "@rollup/plugin-commonjs";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import typescript from "@rollup/plugin-typescript";
-import autoprefixer from "autoprefixer";
-import postcss from "rollup-plugin-postcss";
-import tailwindcss from "tailwindcss";
-import copy from "rollup-plugin-copy";
+import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import postcss from 'rollup-plugin-postcss';
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import builtins from 'rollup-plugin-node-builtins';
+import globals from 'rollup-plugin-node-globals';
+import typescript from '@rollup/plugin-typescript';
+import copy from 'rollup-plugin-copy';
 
-const isProd = process.env.NODE_ENV === "production";
+const env = process.env.NODE_ENV || 'development';
+const isProd = env === 'production';
 
 export default {
-  input: "main.tsx",
+  input: 'src/main.tsx',
   output: {
-    dir: "dist",
-    sourcemap: !isProd && "inline",
-    format: "system",
-    exports: "default",
+    dir: 'dist',
+    sourcemap: (!isProd && 'inline') || false,
+    format: 'system',
+    exports: 'default',
   },
-  external: ["saifu", "react", "react-dom"],
+  external: ['saifu', 'react', 'react-dom', '@babel/runtime/helpers/interopRequireDefault'],
   plugins: [
-    commonjs(),
+    commonjs({}),
     postcss({
       inject: true,
       minimize: true,
       plugins: [
         new tailwindcss({
-          content: ["./*.{js,jsx,ts,tsx}"],
+          content: ['./src/**/*.{js,jsx,ts,tsx}'],
           theme: {
             extend: {},
           },
@@ -37,17 +41,21 @@ export default {
         new autoprefixer(),
       ],
     }),
+    globals(),
+    builtins(),
+    json(),
     nodeResolve({
       browser: true,
+      preferBuiltins: false,
       ignoreGlobal: false,
-      include: ["node_modules/**"],
-      skip: ["saifu", "react", "react-dom"],
+      include: ['node_modules/**'],
+      skip: ['react', 'react-dom', '@babel/runtime'],
     }),
     typescript({
       declaration: !isProd,
     }),
     copy({
-      targets: [{ src: "./metadata.json", dest: "./dist" }],
+      targets: [{ src: './metadata.json', dest: './dist' }],
     }),
   ],
 };

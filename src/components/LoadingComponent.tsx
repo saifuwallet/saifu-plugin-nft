@@ -1,4 +1,4 @@
-import { CgSpinnerAlt } from "react-icons/cg";
+import { CgSpinnerAlt } from 'react-icons/cg';
 
 function Spinner() {
   return <CgSpinnerAlt className="text-4xl animate-spin m-auto" />;
