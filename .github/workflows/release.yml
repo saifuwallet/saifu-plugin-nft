@@ -37,3 +37,5 @@ jobs:
       - run: "yarn build"
       - run: "yarn publish"
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_PKG_REGISTRY_TOKEN }}
