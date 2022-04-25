@@ -1,6 +1,6 @@
 {
   "name": "@saifuwallet/saifu-plugin-nft",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "repository": "git@github.com:saifuwallet/saifu-plugin-nft.git",
@@ -20,16 +20,16 @@
     "@types/react": "^17.0.39",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
-    "clsx": "^1.1.1",
     "autoprefixer": "^10.4.2",
     "axios": "^0.26.1",
+    "clsx": "^1.1.1",
     "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
-    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react-hooks": "^4.4.0",
     "postcss": "^8.4.7",
     "prettier": "^2.2.1",
@@ -52,7 +52,8 @@
   "scripts": {
     "dev": "rollup --config rollup.config.js -w",
     "build": "NODE_ENV=production rollup --config rollup.config.js",
-    "lint": "eslint --fix --ext .js,.ts,.tsx ./src --ignore-path .gitignore"
+    "lint": "eslint --fix --ext .js,.ts,.tsx ./src --ignore-path .gitignore",
+    "validate-versions": "node utils/validateVersions.js"
   },
   "peerDependencies": {
     "react": "^17.0.2",
