@@ -1,13 +1,9 @@
-import { CgSpinnerAlt } from 'react-icons/cg';
-
-function Spinner() {
-  return <CgSpinnerAlt className="text-4xl animate-spin m-auto" />;
-}
+import { Spinner } from '@saifuwallet/saifu-ui';
 
 const LoadingComponent = () => {
   return (
     <div className="w-full h-[400px] flex justify-center items-center">
-      <Spinner />
+      <Spinner className="text-4xl m-auto text-gray-400" />
     </div>
   );
 };

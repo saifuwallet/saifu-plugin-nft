@@ -20,7 +20,7 @@ export default {
     format: 'system',
     exports: 'default',
   },
-  external: ['saifu', 'react', 'react-dom', '@babel/runtime/helpers/interopRequireDefault'],
+  external: ['saifu', 'react', 'react-dom', '@saifuwallet/saifu-ui'],
   plugins: [
     commonjs({}),
     postcss({
@@ -28,15 +28,8 @@ export default {
       minimize: true,
       plugins: [
         new tailwindcss({
-          content: ['./src/**/*.{js,jsx,ts,tsx}'],
-          theme: {
-            extend: {},
-          },
-          variants: {},
-          plugins: [],
-          corePlugins: {
-            preflight: false,
-          },
+          darkMode: 'class',
+          content: ['./src/**/*.{js,jsx,ts,tsx}', './node_modules/@saifuwallet/saifu-ui/dist/**/*.{js,jsx,ts,tsx}'],
         }),
         new autoprefixer(),
       ],

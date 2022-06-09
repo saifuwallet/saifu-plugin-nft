@@ -1,46 +1,51 @@
+import { Card, Text } from '@saifuwallet/saifu-ui';
 import clsx from 'clsx';
 import { useState } from 'react';
-import { Link, useTokenMetadata } from 'saifu';
+import { Link } from 'saifu';
+
+import { nftInfo } from '@/hooks/useNFTAccounts';
 
 export interface NftBoxProps {
   mint: string;
+  info: nftInfo;
 }
 
-const NFTCard = ({ mint }: NftBoxProps) => {
-  const metadata = useTokenMetadata(mint);
+const NFTCard = ({ mint, info }: NftBoxProps) => {
   const [imgLoaded, setImgLoaded] = useState(false);
-  // not an NFT
-  if (!metadata.isLoading && !metadata.data) {
-    return <></>;
-  }
 
   return (
-    <Link to={`/tokens/${mint}`}>
-      <div
+    <Card
+      as={Link}
+      to={`/tokens/${info.mintAddress}`}
+      className="group w-full overflow-clip duration-200 flex flex-col"
+      hover
+    >
+      <Card
+        variant="flat"
         className={clsx(
-          'shadow-md rounded-xl overflow-hidden break-inside-avoid-column',
-          metadata.isLoading && 'animate-pulse'
+          'grow overflow-clip rounded-b-none',
+          !imgLoaded && 'animate-pulse bg-gray-300'
         )}
       >
         <img
-          src={metadata.data?.image}
+          src={info.image}
           className={clsx(
-            'object-cover aspect-auto w-full',
-            (!imgLoaded || metadata.isLoading) && 'bg-gray-500 h-52'
+            'w-full h-full object-center object-cover transition ease-in-out group-hover:scale-110'
           )}
           loading="lazy"
-          alt={metadata.data?.name}
+          alt={info.name}
+          onError={() => {
+            setImgLoaded(true);
+          }}
           onLoad={() => setImgLoaded(true)}
         />
-        <div className="p-2 rounded-md">
-          <p
-            className={clsx('font-bold', metadata.isLoading && 'h-4 w-full bg-gray-400 rounded-sm')}
-          >
-            {metadata.data?.name}
-          </p>
-        </div>
+      </Card>
+      <div className="flex-none p-2 w-full">
+        <Text weight="medium" size="sm" as="p">
+          {info.name || mint}
+        </Text>
       </div>
-    </Link>
+    </Card>
   );
 };
 
