@@ -1,30 +1,26 @@
 import React from 'react';
-import { usePublicKey } from 'saifu';
-
-import useNFTAccounts from '@/hooks/useNFTAccounts';
+import { useNFTAccounts } from 'saifu';
 
 import NoNftsComponent from './EmptyStateComponent';
 import LoadingComponent from './LoadingComponent';
 import NFTCard from './NFTCard';
 
 const NftOverviewView = () => {
-  const publicKey = usePublicKey();
-
-  const nftAccs = useNFTAccounts(publicKey?.toString() || '');
+  const nftAccs = useNFTAccounts();
 
   return (
-    <>
+    <div id="nft-plugin-app">
       {(nftAccs.isLoading || nftAccs.isIdle) && <LoadingComponent />}
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 px-2">
         {!nftAccs.isLoading && nftAccs.data?.length === 0 && <NoNftsComponent />}
         {nftAccs.data
-          ?.sort((a, b) => a.mintAddress.localeCompare(b.mintAddress))
+          ?.sort((a, b) => a.mint.localeCompare(b.mint))
           .map((acc, i) => (
-            <NFTCard key={i} mint={acc.mintAddress} info={acc} />
+            <NFTCard key={i} mint={acc.mint} />
           ))}
       </div>
-    </>
+    </div>
   );
 };
 
