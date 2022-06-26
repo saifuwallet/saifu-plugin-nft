@@ -1,17 +1,20 @@
 import { Card, Text } from '@saifuwallet/saifu-ui';
 import clsx from 'clsx';
-import { useState } from 'react';
-import { Link, useTokenMetadata } from 'saifu';
+import React, { useState } from 'react';
+import { Link } from 'saifu';
 
 export interface NftBoxProps {
   mint: string;
+  image?: string;
+  isLoading?: boolean;
+  name?: string;
 }
 
-const NFTCard = ({ mint }: NftBoxProps) => {
+const NFTCard = ({ mint, image, name, isLoading }: NftBoxProps) => {
   const [imgLoaded, setImgLoaded] = useState(false);
-  const metadata = useTokenMetadata(mint);
+
   // not an NFT
-  if (!metadata.isLoading && !metadata.data) {
+  if (!isLoading && !image) {
     return <></>;
   }
 
@@ -20,8 +23,8 @@ const NFTCard = ({ mint }: NftBoxProps) => {
       as={Link}
       to={`/tokens/${mint}`}
       className={clsx(
-        'group w-full h-full duration-200 flex flex-col',
-        (!imgLoaded || metadata.isLoading) && 'animate-pulse bg-gray-400'
+        'group w-full h-full flex flex-col',
+        (!imgLoaded || isLoading) && 'animate-pulse bg-gray-400'
       )}
       hover
     >
@@ -34,12 +37,12 @@ const NFTCard = ({ mint }: NftBoxProps) => {
           )}
         >
           <img
-            src={metadata.data?.image}
+            src={image}
             className={clsx(
-              'w-full h-full object-center object-cover transition ease-in-out group-hover:scale-110 transform-gpu'
+              'w-full h-full object-center object-cover transition ease-in-out group-hover:scale-110'
             )}
             loading="lazy"
-            alt={metadata.data?.name}
+            alt={name}
             onError={() => {
               setImgLoaded(true);
             }}
@@ -48,7 +51,7 @@ const NFTCard = ({ mint }: NftBoxProps) => {
         </Card>
         <div className="flex-none p-2 w-full overflow-hidden">
           <Text className="text-ellipsis break-words" weight="medium" size="sm" as="p">
-            {metadata.data?.name || mint}
+            {name || mint}
           </Text>
         </div>
       </div>
@@ -56,4 +59,4 @@ const NFTCard = ({ mint }: NftBoxProps) => {
   );
 };
 
-export default NFTCard;
+export default React.memo(NFTCard);
