@@ -13,15 +13,10 @@ export interface NftBoxProps {
 const NFTCard = ({ mint, image, name, isLoading }: NftBoxProps) => {
   const [imgLoaded, setImgLoaded] = useState(false);
 
-  // not an NFT
-  if (!isLoading && !image) {
-    return <></>;
-  }
-
   return (
     <Card
       as={Link}
-      to={`/tokens/${mint}`}
+      to={`/nfts/${mint}`}
       className={clsx(
         'group w-full h-full flex flex-col',
         (!imgLoaded || isLoading) && 'animate-pulse bg-gray-400'
@@ -39,7 +34,7 @@ const NFTCard = ({ mint, image, name, isLoading }: NftBoxProps) => {
           <img
             src={image}
             className={clsx(
-              'w-full h-full object-center object-cover transition ease-in-out group-hover:scale-110'
+              'object-center object-cover transition ease-in-out group-hover:scale-110 aspect-square'
             )}
             loading="lazy"
             alt={name}

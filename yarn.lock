@@ -87,10 +87,10 @@
     "@ethersproject/logger" "^5.5.0"
     hash.js "1.1.7"
 
-"@headlessui/react@^1.6.0":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.6.4.tgz#c73084e23386bef5fb86cd16da3352c3a844bb4c"
-  integrity sha512-0yqz1scwbFtwljmbbKjXsSGl5ABEYNICVHZnMCWo0UtOZodo2Tpu94uOVgCRjRZ77l2WcTi2S0uidINDvG7lsA==
+"@headlessui/react@^1.6.4":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.6.5.tgz#5587c537de809cf3146eb2ff263e5e940b1bf69c"
+  integrity sha512-3VkKteDxlxf3fE0KbfO9t60KC1lM7YNpZggLpwzVNg1J/zwL+h+4N7MBlFDVpInZI3rKlZGpNx0PWsG/9c2vQg==
 
 "@heroicons/react@^1.0.6":
   version "1.0.6"
@@ -189,12 +189,12 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@saifuwallet/saifu-ui@^0.1.0-beta6":
-  version "0.1.0-beta6"
-  resolved "https://npm.pkg.github.com/download/@saifuwallet/saifu-ui/0.1.0-beta6/c3df303c98876bb65b2bff35be57cfd83bdc8a9e077c90bfec6228ab4bda7bca#1603c3570dba14a42949081af5450224181d62ed"
-  integrity sha512-BPqSL5apDiCZMJG1wXhDJLZ/bjmpRJIsTN4qpnj+nECo2ZhUzAaMugtgs16glOSLnsK3y0wG+1kpsqjaVhiAzQ==
+"@saifuwallet/saifu-ui@^0.1.0-beta10":
+  version "0.1.0-beta10"
+  resolved "https://npm.pkg.github.com/download/@saifuwallet/saifu-ui/0.1.0-beta10/17161e2ecf5260feb4bf0ba8d79a570a380f22eb11ba290a369abad4d40757b5#cd9160b2dc88eaf84d56ca075966e7bd8c024a29"
+  integrity sha512-PeirAO6owhwNRc7zByrQ0jyWzBuZZ2+Le/UmKwdgR7/hGkxiqI3P2+GxCZRQRlgE4rqWR0QEBltj8CkXwJ00kQ==
   dependencies:
-    "@headlessui/react" "^1.6.0"
+    "@headlessui/react" "^1.6.4"
     "@heroicons/react" "^1.0.6"
     "@solana/spl-token-registry" "^0.2.3841"
     "@tailwindcss/forms" "^0.5.0"
@@ -3669,10 +3669,9 @@ safer-buffer@^2.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-saifu@^0.4.3:
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/saifu/-/saifu-0.4.3.tgz#0902cac35c90c1cd1ce0f2dd6d5e404aa7a40a06"
-  integrity sha512-vkopTSVv4dA/RQBeSRzPB6+AeYs66r2bFwmWo7cFBTEkBIW80MWDWdDP5h9/c479Rn2EXFgq8DFCm0xSghsLeA==
+"saifu@github:saifuwallet/saifu-api#earn-api":
+  version "0.4.2"
+  resolved "https://codeload.github.com/saifuwallet/saifu-api/tar.gz/1de9454dd60c10177a844e3f4fc2a8a4a438bf53"
   dependencies:
     "@solana/spl-token-registry" "^0.2.2911"
     "@solana/web3.js" "^1.35.1"

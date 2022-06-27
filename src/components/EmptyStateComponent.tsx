@@ -9,7 +9,7 @@ const EmptyStateComponent = () => {
       target="_blank"
       rel="noopener noreferrer"
       hover
-      className="p-5"
+      className="p-5 block"
     >
       <div className="text-center text-lg space-y-2">
         <PlusIcon className="h-5 w-5 text-gray-500 m-auto" />
