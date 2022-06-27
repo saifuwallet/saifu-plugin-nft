@@ -1,6 +1,6 @@
 {
   "name": "@saifuwallet/saifu-plugin-nft",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "repository": "git@github.com:saifuwallet/saifu-plugin-nft.git",

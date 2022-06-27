@@ -21,7 +21,7 @@ const NftOverviewView = () => {
           {({ height, width }) => (
             <Grid
               className="grid grid-cols-2 md:grid-cols-4"
-              columnCount={isLarge ? 3 : 2}
+              columnCount={Math.min(nftAccs.data.length, isLarge ? 3 : 2)}
               rowCount={nftAccs.data.length / (isLarge ? 3 : 2)}
               columnWidth={isLarge ? 250 : 160}
               rowHeight={isLarge ? 300 : 230}
@@ -50,13 +50,13 @@ const NftRow = React.memo(
     columnIndex: number;
     rowIndex: number;
   }) => {
-    const nft = data.nfts[(data.isLarge ? 4 : 2) * rowIndex + columnIndex];
-    const metadata = useTokenMetadata(nft.mint.toString());
+    const nft = data.nfts.at((data.isLarge ? 4 : 2) * rowIndex + columnIndex);
+    const metadata = useTokenMetadata(nft?.mint.toString() || '');
     return (
       <div className="p-2" style={style}>
         <NFTCard
-          mint={nft.mint.toString()}
-          name={nft.name || metadata.data?.name}
+          mint={nft?.mint.toString() || ''}
+          name={nft?.name || metadata.data?.name}
           image={metadata.data?.image}
           isLoading={metadata.isLoading}
         />
